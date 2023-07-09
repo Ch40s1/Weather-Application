@@ -3,19 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
   <title>Weather</title>
 </head>
 <header>
   <!-- i want the title in the top left -->
-  <h1></h1>
   <!-- I want a search bar in the middle  -->
-  <nav><form></form></nav>
+  <nav class="navbar bg-dark">
+    <div class="container-fluid bg-dark">
+      <h2 class="navbar-title">Weather</h2>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search City" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
 </header>
 <body>
-  <!-- I want the aside to be on the lest side -->
-  <aside></aside>
-  <!-- I want the main to be have two sections. the top section will have the weather and name of city -->
-  <!-- the bottom section will have all the other things. -->
-  <main></main>
+    <!-- I want the aside to be on the lest side -->
+  <aside id="previous-search" class="bg-secondary col-md-2 col-sm-4">
+  </aside>
+    <!-- I want the main to be have two sections. the top section will have the weather and name of city -->
+    <!-- the bottom section will have all the other things. -->
+  <main class="col-md-10 col-sm-8">
+    <section >
+      <h3>Current Weather:</h3>
+      <ul>
+        <li>Temparature</li>
+        <li>Wind</li>
+        <li>Humidity</li>
+      </ul>
+    </section>
+    </section>
+      <h3>hello</h3>
+      <div>
+        <ul>
+          <li>Temparature</li>
+          <li>Wind</li>
+          <li>Humidity</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Temparature</li>
+          <li>Wind</li>
+          <li>Humidity</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Temparature</li>
+          <li>Wind</li>
+          <li>Humidity</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Temparature</li>
+          <li>Wind</li>
+          <li>Humidity</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Temparature</li>
+          <li>Wind</li>
+          <li>Humidity</li>
+        </ul>
+      </div>
+    <section>
+  </main>
+  <script src="./script.js"></script>
 </body>
 </html>
