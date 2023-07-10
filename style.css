@@ -1,6 +1,9 @@
-
+*{
+  font-family: 'Roboto', sans-serif;
+}
 .navbar-title{
   color: azure;
+  padding-left: 10px;
 }
 aside{
   height: 100vh;
@@ -15,14 +18,22 @@ aside{
 }
 #five-day-forecast{
   height: 50%;
+  display: flex;
   padding-top: 20px;
+  flex-wrap: wrap;
 }
 .weekday{
   background-color: aqua;
   height: 300px;
  
 }
-#current-day{
+#city-name{
+  font-size: 50px;
+  font-family: 'Roboto Slab', serif;
+}
+.city-weather li{
+  font-size: 20px;
+  list-style: none;
 }
 .forecast-weather{
   list-style: none;
@@ -33,7 +44,22 @@ aside{
   padding-left: 10px;
   border: 3px solid black;
   border-radius: 10px;
+  flex-wrap: wrap;
 }
-@media only screen and (max-width: 600px) {
-  .col-sm-4 {background:orange;}
+#previous-cities{
+  list-style: none;
+}
+.btn{
+  background-color: white;
+  margin-top: 10px;
+  width: 90%;
+  margin-right: 10px;
+}
+@media (max-width: 600px) {
+  main{
+    flex-direction: column;
+  }
+  aside{
+    height: 200px;
+  }
 }
