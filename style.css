@@ -5,6 +5,35 @@
 aside{
   height: 100vh;
 }
+#current-weather{
+  height: 50%;
+  width: 100%;
+  border-bottom: 2px solid black;
+  background-image: url("./assets/weather.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+#five-day-forecast{
+  height: 50%;
+  padding-top: 20px;
+}
+.weekday{
+  background-color: aqua;
+  height: 300px;
+ 
+}
+#current-day{
+}
+.forecast-weather{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  padding-left: 10px;
+  border: 3px solid black;
+  border-radius: 10px;
+}
 @media only screen and (max-width: 600px) {
   .col-sm-4 {background:orange;}
 }
