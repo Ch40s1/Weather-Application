@@ -16,6 +16,11 @@ aside{
   background-repeat: no-repeat;
   background-size: 100%;
 }
+.city-weather{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 #five-day-forecast{
   height: 50%;
   display: flex;

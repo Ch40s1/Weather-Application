@@ -26,6 +26,7 @@ let cityName = document.querySelector('#city-name');
 let temperature = document.querySelector('.temperature');
 
 
+
 searchForm.addEventListener('submit', function(event){
   event.preventDefault();
   var city = userInput.value;
@@ -59,7 +60,8 @@ searchForm.addEventListener('submit', function(event){
       console.log(weatherData);
       console.log(weatherData.list[0].wind.speed)
       cityName.textContent = weatherData.city.name;
-      temperature.textContent = fahrenheit(weatherData) + "\u00B0";
+      temperature.textContent =": " + fahrenheit(weatherData) + "\u00B0";
+
       
     })
     .catch(function(error) {
