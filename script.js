@@ -22,6 +22,9 @@ let weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=32.77&lon
 // select everything that we are going to work with
 let searchForm = document.querySelector('form');
 let userInput = document.querySelector('.userInput');
+let cityName = document.querySelector('#city-name');
+let temperature = document.querySelector('.temperature');
+
 
 searchForm.addEventListener('submit', function(event){
   event.preventDefault();
@@ -35,6 +38,7 @@ searchForm.addEventListener('submit', function(event){
       return response.json();
     })
     .then(function(data) {
+      console.log(data);
       // Extract latitude and longitude from the data
       let latitude = data[0].lat;
       let longitude = data[0].lon;
@@ -44,10 +48,28 @@ searchForm.addEventListener('submit', function(event){
       console.log("Longitude:", longitude);
 
       // Call the weather API with the retrieved latitude and longitude
-      var weatherApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+      let weatherApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apiKey;
+      
+      return fetch(weatherApiUrl);
+    })
+    .then(function(weatherResponcse){
+      return weatherResponcse.json();
+    })
+    .then(function(weatherData){
+      console.log(weatherData);
+      console.log(weatherData.list[0].wind.speed)
+      cityName.textContent = weatherData.city.name;
+      temperature.textContent = fahrenheit(weatherData) + "\u00B0";
       
     })
     .catch(function(error) {
       console.log("Error:", error);
+      // let wind = weatherData[0]
     });
 });
+
+function fahrenheit(weatherData){
+  let celsius = weatherData.list[0].main.temp;
+  let convert = Math.round(celsius * 9/5) + 32;
+  return convert;
+}
