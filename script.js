@@ -15,5 +15,39 @@
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
-
+let apiKey = "f744d3444bf106390752284211cc2a78";
+let stateCode = "US-TX";
+let countryCode = "US";
+let weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=32.77&lon=96.79&appid=" + apiKey;
 // select everything that we are going to work with
+let searchForm = document.querySelector('form');
+let userInput = document.querySelector('.userInput');
+
+searchForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  var city = userInput.value;
+  console.log(city);
+
+  let geoCode = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "," + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
+  
+  fetch(geoCode)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      // Extract latitude and longitude from the data
+      let latitude = data[0].lat;
+      let longitude = data[0].lon;
+
+      // Use the latitude and longitude as needed
+      console.log("Latitude:", latitude);
+      console.log("Longitude:", longitude);
+
+      // Call the weather API with the retrieved latitude and longitude
+      var weatherApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+      
+    })
+    .catch(function(error) {
+      console.log("Error:", error);
+    });
+});
