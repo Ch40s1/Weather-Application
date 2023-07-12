@@ -51,6 +51,8 @@ searchForm.addEventListener('submit', function(event){
     alert("Please enter a valid two-letter state abbreviation.");
     return;
   }
+   // Save user input to local storage
+   saveToLocalStorage(city, stateCode);
 
   let geoCode = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "," + "US-" + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
   
@@ -152,4 +154,14 @@ function isValidState(state) {
   const validStates = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
 
   return validStates.includes(state);
+}
+
+// Function to save user input to local storage
+function saveToLocalStorage(city, state) {
+  const userInputData = {
+    city: city,
+    state: state
+  };
+
+  localStorage.setItem('userInput', JSON.stringify(userInputData));
 }
