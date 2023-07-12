@@ -30,6 +30,7 @@ let index = 0;
 let currentDayBox = document.querySelector('#current-time');
 let currentDay = dayjs();
 currentDayBox.textContent= currentDay.format("dddd, MMM DD");
+let forecastDay = document.querySelector('')
 
 
 searchForm.addEventListener('submit', function(event){
