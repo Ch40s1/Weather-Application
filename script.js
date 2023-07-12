@@ -15,16 +15,21 @@
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
-let apiKey = "f744d3444bf106390752284211cc2a78";
+const apiKey = "f744d3444bf106390752284211cc2a78";
 let stateCode = "US-TX";
 let countryCode = "US";
 let weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=32.77&lon=96.79&appid=" + apiKey;
 // select everything that we are going to work with
-let searchForm = document.querySelector('form');
-let userInput = document.querySelector('.userInput');
-let cityName = document.querySelector('#city-name');
-let temperature = document.querySelector('.temperature');
-
+const searchForm = document.querySelector('form');
+const userInput = document.querySelector('.userInput');
+const cityName = document.querySelector('#city-name');
+const temperature = document.querySelector('.temperature');
+const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
+let index = 0;
+let currentDayBox = document.querySelector('#current-time');
+let currentDay = dayjs();
+currentDayBox.textContent= currentDay.format("dddd, MMM DD");
 
 
 searchForm.addEventListener('submit', function(event){
@@ -61,12 +66,24 @@ searchForm.addEventListener('submit', function(event){
       console.log(weatherData.list[0].wind.speed)
       cityName.textContent = weatherData.city.name;
       temperature.textContent =": " + fahrenheit(weatherData) + "\u00B0";
+      wind.textContent = ": "+ milesPerHour(weatherData);
+      humidity.textContent = ": " + weatherData.list[0].main.humidity + "%"; 
 
-      
+      //I want to make a loop that writes text into each li
+      //for each li 
+      for(let i = 0; i < 5; i++){
+        const forecastIndex = weatherData.list[index];
+        const forecastElement = document.querySelector(`#forecast-day-${i + 1}`);
+
+        forecastElement.querySelector('.temperature').textContent = fahrenheitForForecast(forecastIndex) + "\u00B0";
+        forecastElement.querySelector('.wind').textContent = milesPerHourForForecast(forecastIndex);
+        forecastElement.querySelector('.humidity').textContent = forecastIndex.main.humidity + "%";
+        index+=8;
+      }
+      //text content = path in the json
     })
     .catch(function(error) {
       console.log("Error:", error);
-      // let wind = weatherData[0]
     });
 });
 
@@ -74,4 +91,21 @@ function fahrenheit(weatherData){
   let celsius = weatherData.list[0].main.temp;
   let convert = Math.round(celsius * 9/5) + 32;
   return convert;
-}
+};
+function fahrenheitForForecast(forecastIndex){
+  let celsius = forecastIndex.main.temp;
+  let convert = Math.round(celsius * 9/5) + 32;
+  return convert;
+};
+function milesPerHour(weatherData){
+  let mps = weatherData.list[0].wind.speed;
+  let mph = (mps * 2.237).toFixed(2);
+  return mph;
+ 
+};
+function milesPerHourForForecast(forecastIndex){
+  let mps = forecastIndex.wind.speed;
+  let mph = (mps * 2.237).toFixed(2);
+  return mph;
+ 
+};
