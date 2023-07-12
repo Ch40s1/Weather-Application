@@ -16,8 +16,8 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 const apiKey = "f744d3444bf106390752284211cc2a78";
-let stateCode = "US-TX";
-let countryCode = "US";
+// let stateCode = "US-TX";
+const countryCode = "US";
 let weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=32.77&lon=96.79&appid=" + apiKey;
 // select everything that we are going to work with
 const searchForm = document.querySelector('form');
@@ -30,15 +30,29 @@ let index = 0;
 let currentDayBox = document.querySelector('#current-time');
 let currentDay = dayjs();
 currentDayBox.textContent= currentDay.format("dddd, MMM DD");
-let forecastDay = document.querySelector('')
+
 
 
 searchForm.addEventListener('submit', function(event){
   event.preventDefault();
-  var city = userInput.value;
-  console.log(city);
+  var input = userInput.value;
+  console.log(input);
 
-  let geoCode = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "," + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
+  // Extract city and state from user input
+  const inputArray = input.split(' ');
+  const city = inputArray.slice(0, -1).join(' ');
+  const stateCode = inputArray[inputArray.length - 1].toUpperCase();
+
+  console.log("City:", city);
+  console.log("State:", stateCode);
+
+  // Validate state
+  if (stateCode.length !== 2 || !isValidState(stateCode)) {
+    alert("Please enter a valid two-letter state abbreviation.");
+    return;
+  }
+
+  let geoCode = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "," + "US-" + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
   
   fetch(geoCode)
     .then(function(response) {
@@ -70,18 +84,31 @@ searchForm.addEventListener('submit', function(event){
       wind.textContent = ": "+ milesPerHour(weatherData);
       humidity.textContent = ": " + weatherData.list[0].main.humidity + "%"; 
 
+      for(let i = 1; i<=5; i++){
+        const forecastElement = document.querySelector(`#forecast-day-${1}`);
+
+        forecastElement.querySelector('.temperature').textContent = '';
+        forecastElement.querySelector('.wind').textContent = '';
+        forecastElement.querySelector('.wind').textContent = '';
+      }
+
+
       //I want to make a loop that writes text into each li
       //for each li 
+      index=0;
       for(let i = 0; i < 5; i++){
         const forecastIndex = weatherData.list[index];
         const forecastElement = document.querySelector(`#forecast-day-${i + 1}`);
+        const forecastTime = document.querySelector(`#day-${i +1}`);
 
         forecastElement.querySelector('.temperature').textContent = fahrenheitForForecast(forecastIndex) + "\u00B0";
         forecastElement.querySelector('.wind').textContent = milesPerHourForForecast(forecastIndex);
         forecastElement.querySelector('.humidity').textContent = forecastIndex.main.humidity + "%";
         index+=8;
+        forecastTime.textContent= timeConversion(forecastIndex);
       }
       //text content = path in the json
+
     })
     .catch(function(error) {
       console.log("Error:", error);
@@ -93,20 +120,36 @@ function fahrenheit(weatherData){
   let convert = Math.round(celsius * 9/5) + 32;
   return convert;
 };
-function fahrenheitForForecast(forecastIndex){
-  let celsius = forecastIndex.main.temp;
-  let convert = Math.round(celsius * 9/5) + 32;
-  return convert;
-};
+function fahrenheitForForecast(forecastIndex) {
+  if (forecastIndex && forecastIndex.main && forecastIndex.main.temp !== undefined) {
+    let celsius = forecastIndex.main.temp;
+    let convert = Math.round(celsius * 9/5) + 32;
+    return convert;
+  }
+  return '';
+}
 function milesPerHour(weatherData){
   let mps = weatherData.list[0].wind.speed;
   let mph = (mps * 2.237).toFixed(2);
   return mph;
  
 };
-function milesPerHourForForecast(forecastIndex){
-  let mps = forecastIndex.wind.speed;
-  let mph = (mps * 2.237).toFixed(2);
-  return mph;
- 
-};
+function milesPerHourForForecast(forecastIndex) {
+  if (forecastIndex && forecastIndex.wind && forecastIndex.wind.speed !== undefined) {
+    let mps = forecastIndex.wind.speed;
+    let mph = (mps * 2.237).toFixed(2);
+    return mph;
+  }
+  return '';
+}
+function timeConversion(forecastIndex){
+  let time = dayjs(forecastIndex.dt_txt);
+  return time.format("dddd, MMM DD");
+
+}
+// Function to validate state
+function isValidState(state) {
+  const validStates = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
+
+  return validStates.includes(state);
+}
