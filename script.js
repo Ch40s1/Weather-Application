@@ -110,9 +110,9 @@ searchForm.addEventListener('submit', function (event) {
       console.log(weatherData);
       console.log(weatherData.list[0].wind.speed)
       cityName.textContent = weatherData.city.name;
-      temperature.textContent = ": " + fahrenheit(weatherData) + "\u00B0";
-      wind.textContent = ": " + milesPerHour(weatherData);
-      humidity.textContent = ": " + weatherData.list[0].main.humidity + "%";
+      temperature.textContent = "Temperature: " + fahrenheit(weatherData) + "\u00B0 F";
+      wind.textContent = "Wind: " + milesPerHour(weatherData);
+      humidity.textContent = "Humidity: " + weatherData.list[0].main.humidity + "%";
       //loop for getting all classes of the forecaset days.
       for (let i = 1; i <= 5; i++) {
         const forecastElement = document.querySelector(`#forecast-day-${1}`);
@@ -129,9 +129,9 @@ searchForm.addEventListener('submit', function (event) {
         const forecastElement = document.querySelector(`#forecast-day-${i + 1}`);
         const forecastTime = document.querySelector(`#day-${i + 1}`);
         // Sets the text content but first convert the units to the ones needed
-        forecastElement.querySelector('.temperature').textContent = fahrenheitForForecast(forecastIndex) + "\u00B0";
-        forecastElement.querySelector('.wind').textContent = milesPerHourForForecast(forecastIndex);
-        forecastElement.querySelector('.humidity').textContent = forecastIndex.main.humidity + "%";
+        forecastElement.querySelector('.temperature').textContent = "Temperature: "+fahrenheitForForecast(forecastIndex) + "\u00B0 F";
+        forecastElement.querySelector('.wind').textContent = "wind(mph): "+milesPerHourForForecast(forecastIndex);
+        forecastElement.querySelector('.humidity').textContent = "humidity: "+forecastIndex.main.humidity + "%";
         index += 8;
         forecastTime.textContent = timeConversion(forecastIndex);
       }
