@@ -1,20 +1,4 @@
-// Write the functions that hit the API. You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
-// Write the functions that process the JSON data you’re getting from the API and return an object with only the data you require for your app.
-// Set up a simple form that will let users input their location and will fetch the weather info (still just console.log() it).
-// Display the information on your webpage!
-// Add any styling you like!
-// Optional: add a ‘loading’ component that displays from the time the form is submitted until the information comes back from the API. Use DevTools to test for low-end devices.
-// Push that baby to github and share your solution below!
 
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the the wind speed
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
 const apiKey = "f744d3444bf106390752284211cc2a78";
 // let stateCode = "US-TX";
 const countryCode = "US";
@@ -26,17 +10,61 @@ const cityName = document.querySelector('#city-name');
 const temperature = document.querySelector('.temperature');
 const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
+const previousCities = document.querySelector('#previous-cities');
 let index = 0;
 let currentDayBox = document.querySelector('#current-time');
 let currentDay = dayjs();
 currentDayBox.textContent= currentDay.format("dddd, MMM DD");
+
+// Function to create and append a previous city button
+function createPreviousCityButton(city, stateCode) {
+  // Check if a button with the same city and state code already exists
+  const existingButton = Array.from(previousCities.children).find(button => {
+    const buttonCity = button.textContent.split(' ')[0];
+    const buttonStateCode = button.textContent.split(' ')[1];
+    return buttonCity === city && buttonStateCode === stateCode;
+  });
+
+  // If an existing button is found, return without creating a new button
+  if (existingButton) {
+    return;
+  }
+
+  const previousCityButton = document.createElement('button');
+  previousCityButton.textContent = city + ' ' + stateCode;
+
+  previousCityButton.addEventListener('click', function() {
+    userInput.value = city + ' ' + stateCode;
+    searchForm.dispatchEvent(new Event('submit'));
+  });
+
+  previousCities.appendChild(previousCityButton);
+}
+
+// Load user input from local storage and create buttons on page load
+window.addEventListener('load', function() {
+  if (localStorage.getItem('userInput')) {
+    const userInputData = JSON.parse(localStorage.getItem('userInput'));
+    const city = userInputData.city;
+    const stateCode = userInputData.state;
+
+    createPreviousCityButton(city, stateCode);
+  }
+});
+
+// ...
+
+// Inside the submit event listener
+// Clear previous cities
+previousCities.innerHTML = '';
+
 
 
 
 searchForm.addEventListener('submit', function(event){
   event.preventDefault();
   var input = userInput.value;
-  console.log(input);
+  console.log(input); 
 
   // Extract city and state from user input
   const inputArray = input.split(' ');
@@ -53,6 +81,9 @@ searchForm.addEventListener('submit', function(event){
   }
    // Save user input to local storage
    saveToLocalStorage(city, stateCode);
+
+   // Append the previous city button to the previousCities element
+    createPreviousCityButton(city, stateCode);
 
   let geoCode = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "," + "US-" + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
   
