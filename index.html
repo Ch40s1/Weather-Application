@@ -27,9 +27,7 @@
 </header>
 
 <body>
-  <!-- I want the aside to be on the lest side -->
-  <!-- I want the main to be have two sections. the top section will have the weather and name of city -->
-  <!-- the bottom section will have all the other things. -->
+  <!-- this section is for the nav on top -->
   <main class="d-flex col-md-10 w-100">
     <!-- I want the aside to be on the lest side -->
     <aside id="previous-search" class="bg-secondary col-md-2">
@@ -38,8 +36,7 @@
         <button class="btn">Previous Searched City</button>
       </ul>
     </aside>
-    <!-- I want the main to be have two sections. the top section will have the weather and name of city -->
-    <!-- the bottom section will have all the other things. -->
+    <!-- this is for the current day, shows up on the top half -->
     <section class="col-md-10">
       <section id="current-weather" class="d-flex justify-content-center align-items-center">
         <div id="current-day">
@@ -53,6 +50,7 @@
         </div>
       </section>
 
+      <!-- this is for the five day forecast -->
       <section id="five-day-forecast" class="d-flex justify-content-around">
         <div class="weekday col-md-2">
           <ul class="forecast-weather" id="forecast-day-1">
@@ -62,6 +60,7 @@
             <li class="humidity fa-solid fa-droplet fa-1x">Humidity</li>
           </ul>
         </div>
+
         <div class="weekday col-md-2">
           <ul class="forecast-weather" id="forecast-day-2">
             <li id="day-2">Day2</li>
@@ -70,6 +69,7 @@
             <li class="humidity fa-solid fa-droplet fa-1x">Humidity</li>
           </ul>
         </div>
+
         <div class="weekday col-md-2">
           <ul class="forecast-weather" id="forecast-day-3">
             <li id="day-3">Day3</li>
@@ -78,6 +78,7 @@
             <li class="humidity fa-solid fa-droplet fa-1x">Humidity</li>
           </ul>
         </div>
+
         <div class="weekday col-md-2">
           <ul class="forecast-weather" id="forecast-day-4">
             <li id="day-4">Day4</li>
@@ -86,6 +87,7 @@
             <li class="humidity fa-solid fa-droplet fa-1x">Humidity</li>
           </ul>
         </div>
+
         <div class="weekday col-md-2">
           <ul class="forecast-weather" id="forecast-day-5">
             <li id="day-5">Day5</li>
@@ -95,15 +97,13 @@
           </ul>
         </div>
       </section>
+
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-  integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-  crossorigin="anonymous"></script>
+          integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+          crossorigin="anonymous"></script>
   <script src="./script.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" 
-          integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" 
-          crossorigin="anonymous"> -->
   </script>
 </body>
 

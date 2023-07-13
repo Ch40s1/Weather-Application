@@ -5,6 +5,7 @@
   color: azure;
   padding-left: 10px;
 }
+
 aside{
   height: 100vh;
 }
@@ -60,6 +61,9 @@ aside{
   width: 90%;
   margin-right: 10px;
 }
+
+/* the page is made responsive with bootstrap but i 
+also used this media query to make the phone size more easier to read */
 @media (max-width: 600px) {
   main{
     flex-direction: column;
