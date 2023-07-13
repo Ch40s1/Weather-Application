@@ -84,7 +84,7 @@ searchForm.addEventListener('submit', function (event) {
   // Append the previous city button to the previousCities element
   createPreviousCityButton(city, stateCode);
   //this is the url for the five day forecast.
-  let geoCode = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "," + "US-" + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
+  let geoCode = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "," + "US-" + stateCode + "," + countryCode + "&limit=5&appid=" + apiKey;
   //fetch api for five day forecast
   fetch(geoCode)
     .then(function (response) {
