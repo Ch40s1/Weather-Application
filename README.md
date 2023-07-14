@@ -1,5 +1,4 @@
 # Weather-Application
-# Day-Planner
 This project is made to keep the user informed about the latest weather conditions. It shows a five day forecast and the user is able view their previous searches making it easier to stay up to date on current conditions.
 
 ## Website Link 
